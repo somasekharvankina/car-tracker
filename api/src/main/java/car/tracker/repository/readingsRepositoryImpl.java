@@ -3,6 +3,7 @@ package car.tracker.repository;
 import car.tracker.Entity.Alert;
 import car.tracker.Entity.readings;
 import car.tracker.Entity.tiress;
+import car.tracker.Entity.vehicle;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -39,6 +40,9 @@ public class readingsRepositoryImpl implements readingsRepository {
 
     @Override
     public readings create(tiress tire, readings read) {
+        TypedQuery<vehicle> query = em.createNamedQuery("vehicle.findByVin",vehicle.class);
+        query.setParameter("pVin",read.getVin());
+        
         em.persist(tire);
         em.persist(read);
 

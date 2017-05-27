@@ -10,7 +10,7 @@ import java.sql.Date;
         @NamedQuery(name = "vehicle.findAll",
                     query = "SELECT vhcl FROM vehicle vhcl ORDER BY vhcl.year ASC "),
         @NamedQuery(name = "vehicle.findByVin",
-                    query = "SELECT vhcl FROM vehicle vhcl where vhcl.vin= :pVin")
+                    query = "SELECT vhcl.redlineRpm FROM vehicle vhcl where vhcl.vin= :pVin")
 })
 
 public class vehicle {

@@ -19,6 +19,7 @@ public class vehicleController {
     @Autowired
     private vehicleService service;
 
+
     @RequestMapping(method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<vehicle> findAll(){

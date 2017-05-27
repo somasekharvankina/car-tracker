@@ -30,6 +30,7 @@ public class readingsServiceImpl implements readingsService {
     @Override
     public readings create(readings read) {
 
+        String message;
         Alert obj = new Alert();
        tiress tirevalue = read.getTires();
 
