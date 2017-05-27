@@ -1,0 +1,19 @@
+package car.tracker.repository;
+
+import car.tracker.Entity.Alert;
+import car.tracker.Entity.readings;
+import car.tracker.Entity.tiress;
+
+import java.util.List;
+
+/**
+ * Created by somasekhar on 5/26/2017.
+ */
+public interface readingsRepository {
+    List<readings> findAll();
+    List<readings> findByVin(String vin);
+    readings create(tiress tire, readings read);
+    readings create(tiress tire, readings read, Alert obj);
+    void delete(readings read);
+
+}
