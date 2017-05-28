@@ -32,7 +32,7 @@ public class vehicleServiceImpl implements vehicleService {
         for (int i =0; i<vhcl.length;i++) {
             vehicle vcl = vhcl[i];
             vehicle result = repository.findByVin(vcl.getVin());
-            if (result != null) {
+            if (result == null) {
                 repository.create(vcl);
             }
             else {
