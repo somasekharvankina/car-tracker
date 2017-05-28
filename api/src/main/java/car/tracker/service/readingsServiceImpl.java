@@ -51,7 +51,7 @@ public class readingsServiceImpl implements readingsService {
     public void delete(String vin) {
         List<readings> result = repository.findByVin(vin);
         if(result!= null){
-            repository.delete(<);
+            repository.delete(result.get(0));
 
         }
 
