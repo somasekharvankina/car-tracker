@@ -49,5 +49,11 @@ public class readingsServiceImpl implements readingsService {
 
     @Override
     public void delete(String vin) {
+        List<readings> result = repository.findByVin(vin);
+        if(result!= null){
+            repository.delete(<);
+
+        }
+
     }
 }

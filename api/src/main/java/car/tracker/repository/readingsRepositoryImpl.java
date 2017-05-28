@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -40,9 +41,8 @@ public class readingsRepositoryImpl implements readingsRepository {
 
     @Override
     public readings create(tiress tire, readings read) {
-        TypedQuery<vehicle> query = em.createNamedQuery("vehicle.findByVin",vehicle.class);
-        query.setParameter("pVin",read.getVin());
-        
+
+
         em.persist(tire);
         em.persist(read);
 
