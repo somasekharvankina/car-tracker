@@ -38,66 +38,55 @@ public class readingsRepositoryImpl implements readingsRepository {
     }
 
     @Override
+    public void CreateAlert(String vin, String Message, String priority) {
+        Alert object = new Alert();
+        object.setMessage(Message);
+        object.setPriority(priority);
+        object.setVin(vin);
+        object.setTimeStamp(new Date());
+        em.persist(object);
+    }
+
+    @Override
     public readings create(tiress tire, readings read) {
-        Alert alertobj = new Alert();
 
         TypedQuery<vehicle> query = em.createNamedQuery("vehicle.findByVin",vehicle.class);
 
         query.setParameter("pVin",read.getVin());
+
         if(query.getResultList().get(0).getRedlineRpm() < read.getEngineRpm()){
-            alertobj.setTimeStamp(new Date());
-            alertobj.setVin(read.getVin());
-            alertobj.setPriority("High");
-            alertobj.setMessage("Car Rpm is very high immediate attention needed");
-            em.persist(alertobj);
+            CreateAlert(read.getVin(),"Attention needed RPM is very High","High");
+        }
+
+        if(read.getFuelVolume() < ((query.getResultList().get(0).getMaxFuelVolume())/10)){
+
+            CreateAlert(read.getVin(),"Fuel is Low","Medium");
         }
 
         em.persist(tire);
         em.persist(read);
 
-
         return read;
     }
 
-//    @Override
-//    public String createtire(tiress tire){
-//        em.persist(tire);
-//        return tire.getId() ;
-//    }
-    //        TypedQuery<readings> query = em.createNamedQuery("readings.insertTireValue",readings.class);
-//        query.setParameter("Rid",read.getId());
-//        query.setParameter("tid",tire);
-
     @Override
     public readings create(tiress tire, readings read,Alert obj) {
-        Alert alertobj = new Alert();
-        Alert alertobj1 = new Alert();
-
 
         TypedQuery<vehicle> query = em.createNamedQuery("vehicle.findByVin",vehicle.class);
         query.setParameter("pVin",read.getVin());
 
-
         if(read.getEngineRpm() > query.getResultList().get(0).getRedlineRpm()){
-            alertobj.setTimeStamp(new Date());
-            alertobj.setVin(read.getVin());
-            alertobj.setPriority("High");
-            alertobj.setMessage("Car Rpm is very high immediate attention needed");
-            em.persist(alertobj);
+            CreateAlert(read.getVin(),"Car Rpm is very high immediate attention needed","High");
         }
+
         if(read.getFuelVolume() < ((query.getResultList().get(0).getMaxFuelVolume())/10)){
 
-            alertobj1.setTimeStamp(new Date());
-            alertobj1.setMessage("Low Fuel Volume");
-            alertobj1.setPriority("Medium");
-            alertobj1.setVin(read.getVin());
-            em.persist(alertobj1);
+            CreateAlert(read.getVin(),"Fuel volume is Low","Medium");
         }
 
         em.persist(tire);
         em.persist(read);
         em.persist(obj);
-
 
         return read;
     }

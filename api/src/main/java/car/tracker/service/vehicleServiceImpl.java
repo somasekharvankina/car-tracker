@@ -1,6 +1,7 @@
 package car.tracker.service;
 
 import car.tracker.Entity.vehicle;
+import car.tracker.Exceptions.BadRequestException;
 import car.tracker.repository.vehiclerepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,18 +30,23 @@ public class vehicleServiceImpl implements vehicleService {
     @Override
     @Transactional
     public vehicle create(vehicle[] vhcl) {
-        for (int i =0; i<vhcl.length;i++) {
-            vehicle vcl = vhcl[i];
-            vehicle result = repository.findByVin(vcl.getVin());
-            if (result == null) {
-                repository.create(vcl);
-            }
-            else {
 
-                repository.update(vcl);
+        if (vhcl != null) {
+
+            for (int i = 0; i < vhcl.length; i++) {
+                vehicle vcl = vhcl[i];
+                vehicle result = repository.findByVin(vcl.getVin());
+                if (result == null) {
+                    repository.create(vcl);
+                } else {
+
+                    repository.update(vcl);
+                }
             }
+            return null;
+        } else{
+            throw  new BadRequestException("No data found in the object"+ vhcl);
         }
-        return null;
     }
 
     @Override
@@ -48,8 +54,13 @@ public class vehicleServiceImpl implements vehicleService {
     public void delete(String para) {
 
         vehicle result = repository.findByVin(para);
+
         if (result != null) {
             repository.delete(result);
+        }
+        else
+        {
+            throw  new BadRequestException("Not data found on the VIN" + para);
         }
     }
 }
