@@ -81,7 +81,7 @@ public class readingsRepositoryImpl implements readingsRepository {
 
         if(read.getFuelVolume() < ((query.getResultList().get(0).getMaxFuelVolume())/10)){
 
-            CreateAlert(read.getVin(),"Fuel volume is Low","Medium");
+            CreateAlert(read.getVin(),"Fuel volume is going Low","Medium");
         }
 
         em.persist(tire);
