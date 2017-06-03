@@ -60,7 +60,7 @@ public class vehicleServiceImpl implements vehicleService {
         }
         else
         {
-            throw  new BadRequestException("Not data found on the VIN" + para);
+            throw  new BadRequestException("Not data found by this VIN" + para);
         }
     }
 }
