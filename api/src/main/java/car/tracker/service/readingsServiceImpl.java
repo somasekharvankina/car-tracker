@@ -4,6 +4,7 @@ import car.tracker.Entity.Alert;
 import car.tracker.Entity.readings;
 import car.tracker.Entity.tiress;
 import car.tracker.Exceptions.BadRequestException;
+import car.tracker.Exceptions.NotFoundExceptions;
 import car.tracker.repository.readingsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,19 +33,27 @@ public class readingsServiceImpl implements readingsService {
     @Override
     public readings create(readings read) {
         if (read != null) {
-            String message;
-            Alert obj = new Alert();
+            StringBuilder message = new StringBuilder("");
             tiress tirevalue = read.getTires();
 
-            if (tirevalue.getFrontLeft() < 32 || tirevalue.getFrontLeft() > 36 || tirevalue.getFrontRight() < 32 || tirevalue.getFrontRight() > 36
-                    || tirevalue.getRearLeft() < 32 || tirevalue.getRearLeft() > 36 || tirevalue.getRearRight() < 32 || tirevalue.getRearRight() > 36) {
-
-                repository.CreateAlert(read.getVin(), "Tire Pressure is Low", "Low");
+            if (tirevalue.getFrontLeft() < 32 || tirevalue.getFrontLeft() > 36){
+                message.append("Front left tire pressure is not Normal. ");
             }
-
+            if(tirevalue.getFrontRight() < 32 || tirevalue.getFrontRight() > 36){
+                message.append("Front Right tire pressure is not normal. ");
+            }
+            if(tirevalue.getRearLeft() < 32 || tirevalue.getRearLeft() > 36 ) {
+                message.append("Rear Left tire pressure is not normal. ");
+            }
+            if(tirevalue.getRearRight() < 32 || tirevalue.getRearRight() > 36) {
+                message.append("Rear Right tire pressure is not normal. ");
+            }
+            if(message.length() >4) {
+                repository.CreateAlert(read.getVin(),"Low",message.toString());
+            }
                 if (read.getCheckEngineLightOn() || read.getEngineCoolantLow()) {
 
-                    repository.CreateAlert(read.getVin(), "Soon attention needed for ", "Low");
+                    repository.CreateAlert(read.getVin(), "Low", "Soon attention needed for CheckEngine or Engine Coolant");
 
                 }
 
@@ -64,7 +73,7 @@ public class readingsServiceImpl implements readingsService {
             repository.delete(result.get(0));
             }
         else{
-        throw  new BadRequestException("no data found on the Vin" + vin);
+        throw  new NotFoundExceptions("no data found on the Vin" + vin);
            }
         }
     }

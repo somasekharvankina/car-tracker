@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "readings")
 public class readingsController {
+
      @Autowired
     private readingsService service;
 

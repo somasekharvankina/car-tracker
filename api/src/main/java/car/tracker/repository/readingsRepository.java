@@ -14,7 +14,6 @@ public interface readingsRepository {
     List<readings> findByVin(String vin);
     void CreateAlert( String vin,String priority, String message);
     readings create(tiress tire, readings read);
-    readings create(tiress tire, readings read, Alert obj);
     void delete(readings read);
 
 }
