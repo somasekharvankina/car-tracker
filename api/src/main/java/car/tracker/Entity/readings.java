@@ -12,12 +12,15 @@ import java.util.UUID;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "readings.findAll",
-                    query = "select reading FROM readings reading ORDER BY reading.vin ASC"),
+                query = "select reading FROM readings reading ORDER BY reading.timestamp DESC"),
         @NamedQuery(name = "readings.findByVin",
-                    query = "SELECT  reading FROM  readings reading WHERE reading.vin = :pVin")
+                    query = "SELECT  reading FROM  readings reading WHERE reading.vin = :pVin order by reading.timestamp DESC" ),
+        @NamedQuery(name = "readings.findLatest",
+                query= "Select reading FROM readings reading WHERE reading.vin=:pVin AND reading.timestamp > :lTime"),
+        @NamedQuery(name = "readings.findByTime",
+                    query="SELECT reading FROM readings reading WHERE reading.vin = :pVin AND reading.timestamp > :fromDate AND reading.timestamp < :toDate")
 })
 public class readings {
-
 
     @Id
     private String id;
@@ -31,7 +34,7 @@ public class readings {
     private Float latitude;
     private Float longitude;
 
-    private Date  timestamp;
+    private Date timestamp;
     
     private double fuelVolume;
     private int speed;
@@ -46,7 +49,6 @@ public class readings {
 
     @OneToOne
     private tiress tires;
-
 
     public String getId() {
         return id;

@@ -2,6 +2,10 @@ package car.tracker.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -9,6 +13,16 @@ import java.util.UUID;
  * Created by somasekhar on 5/27/2017.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "alert.findAll",
+                query = "Select alert from Alert alert order by alert.timeStamp DESC"),
+
+        @NamedQuery(name = "alert.findByVin",
+                query = "Select alert from Alert alert where alert.vin = :pVin"),
+        @NamedQuery(name="alert.findByDate",
+                    query = "select alert from Alert alert where  alert.priority ='High' and alert.timeStamp > :past ")
+
+})
 public class Alert {
 
     @Id

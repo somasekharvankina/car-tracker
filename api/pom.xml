@@ -7,6 +7,7 @@
   <version>1.0.0</version>
   <name>car-tracker Maven Webapp</name>
   <url>http://maven.apache.org</url>
+
   <build>
     <finalName>car-tracker</finalName>
     <plugins>
@@ -97,6 +98,11 @@
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
       <version>1.0.0.GA</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
     </dependency>
   </dependencies>
 

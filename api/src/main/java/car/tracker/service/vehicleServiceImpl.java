@@ -28,6 +28,15 @@ public class vehicleServiceImpl implements vehicleService {
     }
 
     @Override
+    public vehicle findByVin(String vin) {
+        if(vin == null){
+            throw new BadRequestException("No Vin defined");
+        }
+
+        return repository.findByVin(vin);
+    }
+
+    @Override
     @Transactional
     public vehicle create(vehicle[] vhcl) {
 
@@ -60,7 +69,7 @@ public class vehicleServiceImpl implements vehicleService {
         }
         else
         {
-            throw  new BadRequestException("Not data found on the VIN" + para);
+            throw  new BadRequestException("Not data found by this VIN" + para);
         }
     }
 }
