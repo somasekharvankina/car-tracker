@@ -1,0 +1,35 @@
+<div class="container">
+
+    <h1 style="align-content: center">  Alerts of all Vehicles </h1>
+
+
+
+    <form ng-submit="alertsByVin()">
+        <label class="search-selection">Search</label>
+        <input type="text" class="glyphicon-search"  ng-model="alertVm.search" >
+        <input style="align-content: right" type="text" ng-model="alertVm.searchByVin" placeholder="Enter Vin number">
+        <button type="submit">Get Alerts By Vin</button>
+    </form>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Vin</th>
+            <th>Priority</th>
+            <th>Message</th>
+            <th>Date Created</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat= "alert in alertVm.alerts| filter : alertVm.search" ng-class="{true: 'alertt', false:''}[alert.priority =='High']">
+            <td>{{alert.vin}}</td>
+            <td>{{alert.priority }}</td>
+            <td>{{alert.message }}</td>
+            <td>{{alert.timeStamp | date:'MM:dd:yyyy HH:mm:ss'}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>

@@ -1,0 +1,57 @@
+<h1>Readings By Vin</h1>
+<div class="container" ng-controller="readingsController">
+
+<form ng-submit="timeRange()">
+    <label>From</label>
+    <input type="datetime-local" ng-model="readingsVm.fromDate">
+    <label>To</label>
+    <input type="datetime-local" ng-model="readingsVm.toDate">
+    <button>GetPlots </button>
+</form>
+
+
+<h3 style="align-content: center">VIN: {{readingsVm.vinValue}}</h3>
+
+    <table class="table table-stripped" >
+        <thead>
+        <tr>
+
+            <th>Speed</th>
+            <th>FuelVolume</th>
+            <th>EngineRpm</th>
+            <th>EngineHp</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>CheckEngineLightOn</th>
+            <th>EngineCoolantLow</th>
+            <th>Cruise</th>
+            <th>Front Left</th>
+            <th>Front Right</th>
+            <th>Rear Left</th>
+            <th>Rear Right</th>
+            <th>Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat ="readings in readingsVm.readings | filter: readingsVm.searchBy " ng-class="{true:'alertt', false:''}[readings.speed > 100]">
+
+            <td>{{readings.speed}}</td>
+            <td>{{readings.fuelVolume}}</td>
+            <td>{{readings.engineRpm}}</td>
+            <td>{{readings.engineHp}}</td>
+            <td>{{readings.latitude}}</td>
+            <td>{{readings.longitude}}</td>
+            <td>{{readings.checkEngineLightOn}}</td>
+            <td>{{readings.engineCoolantLow}}</td>
+            <td>{{readings.cruiseControlOn}}</td>
+            <td>{{readings.tires.frontLeft}}</td>
+            <td>{{readings.tires.frontRight}}</td>
+            <td>{{readings.tires.rearLeft}}</td>
+            <td>{{readings.tires.rearRight}}</td>
+            <td>{{readings.timestamp |date:'MM:dd:yyyy HH:mm:ss'}}</td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>

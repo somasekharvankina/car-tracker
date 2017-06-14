@@ -1,0 +1,25 @@
+
+<div class="container" ng-controller="latestAlertController" ng-init="alertVm.title='Latest Alerts for past 2 Hours'">
+    <h1>  Latest-Vehicles </h1>
+    <label>Search</label>
+    <input type="text" class="glyphicon-search" ng-model="alertVm.searchBy">
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th>Vin</th>
+            <th>Priority</th>
+            <th>Message</th>
+            <th>Date Created</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat= "alert in alertVm.alerts | filter: alertVm.searchBy ">
+            <td>{{alert.vin}}</td>
+            <td>{{alert.priority}}</td>
+            <td>{{alert.message}}</td>
+            <td>{{alert.timeStamp | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

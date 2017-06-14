@@ -1,0 +1,49 @@
+<div class="container">
+    <h1 >Readings of all Vehicles</h1>
+
+    <label >Search</label>
+    <input type="text" ng-model="readingsVm.searchBy">
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th>Vin</th>
+            <th>Speed</th>
+            <th>FuelVolume</th>
+            <th>EngineRpm</th>
+            <th>EngineHp</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>CheckEngineLightOn</th>
+            <th>EngineCoolantLow</th>
+            <th>Cruise</th>
+            <th>Front Left</th>
+            <th>Front Right</th>
+            <th>Rear Left</th>
+            <th>Rear Right</th>
+            <th>Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat ="readings in readingsVm.readings | filter: readingsVm.searchBy ">
+            <td>{{readings.vin}}</td>
+            <td>{{readings.speed}}</td>
+            <td>{{readings.fuelVolume}}</td>
+            <td>{{readings.engineRpm}}</td>
+            <td>{{readings.engineHp}}</td>
+            <td>{{readings.latitude}}</td>
+            <td>{{readings.longitude}}</td>
+            <td>{{readings.checkEngineLightOn}}</td>
+            <td>{{readings.engineCoolantLow}}</td>
+            <td>{{readings.cruiseControlOn}}</td>
+            <td>{{readings.tires.frontLeft}}</td>
+            <td>{{readings.tires.frontRight}}</td>
+            <td>{{readings.tires.rearLeft}}</td>
+            <td>{{readings.tires.rearRight}}</td>
+            <td>{{readings.timestamp | date: 'yyyy:MM:dd HH:mm:ss'}}</td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
