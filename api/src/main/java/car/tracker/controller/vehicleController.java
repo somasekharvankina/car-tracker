@@ -10,7 +10,8 @@ import javax.persistence.PersistenceContext;
 import java.awt.*;
 import java.util.List;
 
-@CrossOrigin(origins = "http://mocker.egen.io", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "vehicles")
 
@@ -25,6 +26,10 @@ public class vehicleController {
     public List<vehicle> findAll(){
         return service.findAll() ;
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "{vin}",
+    produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public vehicle findByVin(@PathVariable ("vin") String vin){return service.findByVin(vin);}
 
 
     @RequestMapping(method = RequestMethod.PUT,

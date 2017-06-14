@@ -31,6 +31,11 @@ public class readingsServiceImpl implements readingsService {
     }
 
     @Override
+    public List<readings> findOne(String vin) {
+        return repository.findByVin(vin);
+    }
+
+    @Override
     public readings create(readings read) {
         if (read != null) {
             StringBuilder message = new StringBuilder("");
@@ -62,6 +67,31 @@ public class readingsServiceImpl implements readingsService {
             } else
                 throw new BadRequestException("No data found in " + read);
         }
+
+    @Override
+    public List<readings> findLatest(String vin, int latest) {
+        if(vin!= null){
+            List<readings> result = repository.findByVin(vin);
+            if(result != null){
+                return repository.findLatest(vin,latest);
+            }
+            else{
+                throw new NotFoundExceptions("Bad parameters");
+            }
+        }
+        throw  new BadRequestException("Vin should be defined");
+    }
+
+    @Override
+    public List<readings> findByTime(String vin, long From,long To) {
+        List<readings> result = repository.findByVin(vin);
+        Date newFrom = new Date(From);
+        Date newTo = new Date(To);
+        if(result!= null){
+           return repository.findByTime(vin,newFrom,newTo);
+        }
+        throw new BadRequestException("No data found") ;
+    }
 
 
     @Override

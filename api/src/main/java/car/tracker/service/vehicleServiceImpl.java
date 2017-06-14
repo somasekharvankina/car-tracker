@@ -28,6 +28,15 @@ public class vehicleServiceImpl implements vehicleService {
     }
 
     @Override
+    public vehicle findByVin(String vin) {
+        if(vin == null){
+            throw new BadRequestException("No Vin defined");
+        }
+
+        return repository.findByVin(vin);
+    }
+
+    @Override
     @Transactional
     public vehicle create(vehicle[] vhcl) {
 

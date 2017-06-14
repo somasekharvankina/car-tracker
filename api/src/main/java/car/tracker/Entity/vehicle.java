@@ -1,14 +1,13 @@
 package car.tracker.Entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-
+import java.util.Date;
 
 @Entity
 
 @NamedQueries({
         @NamedQuery(name = "vehicle.findAll",
-                    query = "SELECT vhcl FROM vehicle vhcl ORDER BY vhcl.year ASC "),
+                    query = "SELECT vhcl FROM vehicle vhcl ORDER BY vhcl.make ASC"),
         @NamedQuery(name = "vehicle.findByVin",
                     query = "SELECT vhcl FROM vehicle vhcl where vhcl.vin= :pVin")
 })

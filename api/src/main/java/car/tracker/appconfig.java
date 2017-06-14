@@ -16,7 +16,7 @@ public class appconfig  extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**/*")
-                .allowedOrigins("http://mocker.egen.io/")
+                .allowedOrigins("*")
                 .allowedMethods("PUT", "DELETE", "POST", "GET", "OPTIONS")
                 .allowedHeaders("header1", "header2", "header3")
                 .exposedHeaders("header1", "header2")

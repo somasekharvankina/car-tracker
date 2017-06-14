@@ -13,6 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +45,35 @@ public class readingsRepositoryImpl implements readingsRepository {
     }
 
     @Override
+    public List<readings> findLatest(String vin, int latest) {
+        if(latest >=30 && latest <1440){
+            Date millisec = new Date(System.currentTimeMillis() - latest*60*1000);
+
+            TypedQuery<readings> query = em.createNamedQuery("readings.findLatest",readings.class);
+            query.setParameter("pVin",vin);
+            query.setParameter("lTime",millisec);
+            return query.getResultList();
+        }
+        if(latest == 3600){
+            Date millisec = new Date(System.currentTimeMillis()- 3600*1000);
+            TypedQuery<readings> query = em.createNamedQuery("readings.findLatest", readings.class);
+            query.setParameter("pVin",vin);
+            query.setParameter("lTime",millisec);
+            return query.getResultList();
+        }
+        return null;
+    }
+
+    @Override
+    public List<readings> findByTime(String vin, Date From,Date To) {
+        TypedQuery<readings> query = em.createNamedQuery("readings.findByTime",readings.class);
+        query.setParameter("pVin",vin);
+        query.setParameter("fromDate",From);
+        query.setParameter("toDate",To);
+        return query.getResultList();
+    }
+
+    @Override
     public void CreateAlert(String vin, String priority, String Message) {
         Alert object = new Alert();
         object.setMessage(Message);
@@ -65,7 +96,7 @@ public class readingsRepositoryImpl implements readingsRepository {
 
         if(read.getFuelVolume() < ((query.getResultList().get(0).getMaxFuelVolume())/10)){
 
-            CreateAlert(read.getVin(),"Medium","Warning: Fuel is Low!");
+            CreateAlert(read.getVin(),"Medium","Warning: Fuel is going low!");
         }
 
         em.persist(tire);
