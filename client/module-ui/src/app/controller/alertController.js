@@ -13,7 +13,7 @@
             .then(function (alerts) {
                 alertVm.alerts = alerts;
             }, function (error) {
-                console.log(error);
+                alertVm.error = error;
             });
 
         $scope.alertsByVin = function () {
