@@ -1,5 +1,3 @@
-//Chart Directive reference is taken from
-// https://www.tutorialspoint.com/angularjs/angularjs_chart_application.htm
 
 (function () {
     "use strict";
