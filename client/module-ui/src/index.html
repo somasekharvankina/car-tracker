@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="carModule">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <h1>CAR TRACKER</h1>
+
+    <!-- bower:css -->
+    <!-- endinject -->
+
+    <!-- vendor:css -->
+    <!-- endinject -->
+
+
+    <!-- inject:css -->
+
+    <!-- endinject -->
+
+    <!-- endinject -->
+
+</head>
+
+<body>
+<header>
+    <div class="navbar navbar-inverse">
+
+            <ul class="nav navbar-nav">
+            <li><a href="#!/vehicles">Vehicles</a></li>
+            <li><a href="#!/readings">Readings</a></li>
+            <li><a href ="#!/alerts">Alerts</a></li>
+            <li><a href="#!latestalerts/">Latest Alerts For 2 hours</a></li>
+
+        </ul>
+    </div>
+
+</header>
+
+<div ng-view></div>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+<!-- bower:js -->
+<!-- endinject -->
+<!-- inject:css -->
+<!-- endinject -->
+
+<!-- inject:js -->
+<!-- endinject -->
+
+<!-- app:js -->
+<script src="//rawgit.com/angular-ui/angular-google-maps/2.1.5/dist/angular-google-maps.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRd6p27OV7mi52GSfDWSal6HHJFFY2P7M&callback=onGoogleReady"></script>
+<!-- endinject -->
+
+</body>
+
+</html>

@@ -4,6 +4,8 @@ import car.tracker.Entity.Alert;
 import car.tracker.Entity.readings;
 import car.tracker.Entity.tiress;
 import car.tracker.Entity.vehicle;
+import car.tracker.Exceptions.BadRequestException;
+import car.tracker.Exceptions.NotFoundExceptions;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +30,9 @@ public class readingsRepositoryImpl implements readingsRepository {
     @Override
     public List<readings> findAll() {
         TypedQuery<readings> query = em.createNamedQuery("readings.findAll",readings.class);
+        if(query == null){
+            throw new BadRequestException("No data found");
+        }
         List<readings> result =  query.getResultList();
         return query.getResultList();
     }
@@ -38,7 +45,36 @@ public class readingsRepositoryImpl implements readingsRepository {
     }
 
     @Override
-    public void CreateAlert(String vin, String Message, String priority) {
+    public List<readings> findLatest(String vin, int latest) {
+        if(latest >=30 && latest <1440){
+            Date millisec = new Date(System.currentTimeMillis() - latest*60*1000);
+
+            TypedQuery<readings> query = em.createNamedQuery("readings.findLatest",readings.class);
+            query.setParameter("pVin",vin);
+            query.setParameter("lTime",millisec);
+            return query.getResultList();
+        }
+        if(latest == 3600){
+            Date millisec = new Date(System.currentTimeMillis()- 3600*1000);
+            TypedQuery<readings> query = em.createNamedQuery("readings.findLatest", readings.class);
+            query.setParameter("pVin",vin);
+            query.setParameter("lTime",millisec);
+            return query.getResultList();
+        }
+        return null;
+    }
+
+    @Override
+    public List<readings> findByTime(String vin, Date From,Date To) {
+        TypedQuery<readings> query = em.createNamedQuery("readings.findByTime",readings.class);
+        query.setParameter("pVin",vin);
+        query.setParameter("fromDate",From);
+        query.setParameter("toDate",To);
+        return query.getResultList();
+    }
+
+    @Override
+    public void CreateAlert(String vin, String priority, String Message) {
         Alert object = new Alert();
         object.setMessage(Message);
         object.setPriority(priority);
@@ -55,12 +91,12 @@ public class readingsRepositoryImpl implements readingsRepository {
         query.setParameter("pVin",read.getVin());
 
         if(query.getResultList().get(0).getRedlineRpm() < read.getEngineRpm()){
-            CreateAlert(read.getVin(),"Attention needed RPM is very High","High");
+            CreateAlert(read.getVin(),"High","Attention needed! Car RPM is very High");
         }
 
         if(read.getFuelVolume() < ((query.getResultList().get(0).getMaxFuelVolume())/10)){
 
-            CreateAlert(read.getVin(),"Fuel is Low","Medium");
+            CreateAlert(read.getVin(),"Medium","Warning: Fuel is going low!");
         }
 
         em.persist(tire);
@@ -69,27 +105,6 @@ public class readingsRepositoryImpl implements readingsRepository {
         return read;
     }
 
-    @Override
-    public readings create(tiress tire, readings read,Alert obj) {
-
-        TypedQuery<vehicle> query = em.createNamedQuery("vehicle.findByVin",vehicle.class);
-        query.setParameter("pVin",read.getVin());
-
-        if(read.getEngineRpm() > query.getResultList().get(0).getRedlineRpm()){
-            CreateAlert(read.getVin(),"Car Rpm is very high immediate attention needed","High");
-        }
-
-        if(read.getFuelVolume() < ((query.getResultList().get(0).getMaxFuelVolume())/10)){
-
-            CreateAlert(read.getVin(),"Fuel volume is Low","Medium");
-        }
-
-        em.persist(tire);
-        em.persist(read);
-        em.persist(obj);
-
-        return read;
-    }
 
     @Override
     public void delete(readings reading) {

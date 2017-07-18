@@ -1,0 +1,59 @@
+
+
+<div class="container" ng-controller="alertsByVin">
+
+    <h1> Vehicle </h1>
+    <table class="table ">
+        <thead>
+        <tr>
+            <th>Vin</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Max FuelVolume</th>
+            <th>Red Line Rpm</th>
+            <th>LastServiceDate</th>
+        </tr>
+        </thead>
+
+        <tbody >
+        <tr >
+            <td>{{alertVm.vehicle.vin}}</td>
+            <td>{{alertVm.vehicle.make}}</td>
+            <td>{{alertVm.vehicle.model}}</td>
+            <td>{{alertVm.vehicle.year}}</td>
+            <td>{{alertVm.vehicle.maxFuelVolume}}</td>
+            <td>{{alertVm.vehicle.redlineRpm}}</td>
+
+            <td>{{alertVm.vehicle.lastServiceDate | date:'MM:dd:yyyy HH:mm:ss'}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+    <h1>  Alerts of all Vehicles </h1>
+    <label>Search</label>
+    <input type="text" class="glyphicon-search"  ng-model="alertVm.search" >
+
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+
+            <th>Priority</th>
+            <th>Message</th>
+            <th>Date Created</th>
+        </tr>
+        </thead>
+
+        <tbody >
+        <tr ng-repeat= "alert in alertVm.alerts | filter : alertVm.search ">
+
+            <td>{{alert.priority}}</td>
+            <td>{{alert.message}}</td>
+            <td>{{alert.timeStamp | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>

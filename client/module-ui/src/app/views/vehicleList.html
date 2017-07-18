@@ -1,0 +1,32 @@
+<div class="container ">
+    <h2>List of Vehicles</h2>
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th>Vin</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Red Line Rpm</th>
+            <th>Max Fuel Volume</th>
+            <th>Last Service Date</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="vehicle in vehicleVm.vehicles">
+
+            <td ng-click="goClick(vehicle.vin)"> {{vehicle.vin}}</td>
+
+            <td>{{vehicle.make}}</td>
+            <td>{{vehicle.model}}</td>
+            <td>{{vehicle.year}}
+            <td>{{vehicle.redlineRpm}}</td>
+            <td>{{vehicle.maxFuelVolume}}</td>
+            <td>{{vehicle.lastServiceDate | date:'yyyy-MM-dd HH:mm:ss'}}  </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

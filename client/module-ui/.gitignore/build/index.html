@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="carModule">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <h1>CAR TRACKER</h1>
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/c3/c3.css">
+    <!-- endinject -->
+
+    <!-- vendor:css -->
+    <!-- endinject -->
+
+
+    <!-- inject:css -->
+
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- endinject -->
+
+    <!-- endinject -->
+
+</head>
+
+<body>
+<header>
+    <div class="navbar navbar-inverse">
+
+            <ul class="nav navbar-nav">
+            <li><a href="#!/vehicles">Vehicles</a></li>
+            <li><a href="#!/readings">Readings</a></li>
+            <li><a href ="#!/alerts">Alerts</a></li>
+            <li><a href="#!latestalerts/">Latest Alerts For 2 hours</a></li>
+
+        </ul>
+    </div>
+
+</header>
+
+<div ng-view></div>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+<!-- bower:js -->
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/bower_components/angular-route/angular-route.js"></script>
+<script src="/bower_components/angular-messages/angular-messages.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
+<script src="/bower_components/d3/d3.js"></script>
+<script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+<script src="/bower_components/lodash/lodash.js"></script>
+<script src="/bower_components/markerclustererplus/src/markerclusterer.js"></script>
+<script src="/bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
+<script src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
+<script src="/bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
+<script src="/bower_components/js-rich-marker/src/richmarker.js"></script>
+<script src="/bower_components/angular-ui-utils/ui-utils.js"></script>
+<script src="/bower_components/c3/c3.js"></script>
+<script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+<script src="/bower_components/angular-ui-map/ui-map.js"></script>
+<script src="/bower_components/angular-chart/angular-chart.js"></script>
+<!-- endinject -->
+<!-- inject:css -->
+<link rel="stylesheet" href="styles/style.css">
+<!-- endinject -->
+
+<!-- inject:js -->
+<script src="app/app.js"></script>
+<script src="app/controller/alertController.js"></script>
+<script src="app/controller/alertsByVin.js"></script>
+<script src="app/controller/chartController.js"></script>
+<script src="app/controller/mapsController.js"></script>
+<script src="app/controller/readingController.js"></script>
+<script src="app/controller/vechicleController.js"></script>
+<script src="app/directive/chartdirective.js"></script>
+<script src="app/filters/messageFilter.js"></script>
+<script src="app/service/alertService.js"></script>
+<script src="app/service/chartService.js"></script>
+<script src="app/service/readingService.js"></script>
+<script src="app/service/vechicleService.js"></script>
+<!-- endinject -->
+
+<!-- app:js -->
+<script src="//rawgit.com/angular-ui/angular-google-maps/2.1.5/dist/angular-google-maps.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRd6p27OV7mi52GSfDWSal6HHJFFY2P7M&callback=onGoogleReady"></script>
+<!-- endinject -->
+
+</body>
+
+</html>

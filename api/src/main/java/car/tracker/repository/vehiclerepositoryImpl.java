@@ -30,7 +30,7 @@ public class vehiclerepositoryImpl implements vehiclerepository {
         query.setParameter("pVin",vin);
         List<vehicle> result = query.getResultList();
         if(result != null && result.size()==1){
-            return result.get(0);
+        return result.get(0);
         }
         else
             return null;
